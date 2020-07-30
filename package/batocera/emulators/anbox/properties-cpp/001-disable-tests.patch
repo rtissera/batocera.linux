@@ -1,0 +1,10 @@
+--- a/CMakeLists.txt	2020-07-30 21:36:01.684452653 +0200
++++ b/CMakeLists.txt	2020-07-30 21:36:12.468668069 +0200
+@@ -40,6 +40,6 @@
+ add_subdirectory(doc)
+ add_subdirectory(data)
+ add_subdirectory(include)
+-add_subdirectory(tests)
++#add_subdirectory(tests)
+ 
+ # enable_coverage_report(posix_process_test linux_process_test)

@@ -183,6 +183,8 @@ menu "Emulators"
   source "$BR2_EXTERNAL_BATOCERA_PATH/package/batocera/emulators/melonds/Config.in"
   source "$BR2_EXTERNAL_BATOCERA_PATH/package/batocera/emulators/yuzu/Config.in"
   source "$BR2_EXTERNAL_BATOCERA_PATH/package/batocera/emulators/cannonball/Config.in"
+  source "$BR2_EXTERNAL_BATOCERA_PATH/package/batocera/emulators/anbox/anbox/Config.in"
+  source "$BR2_EXTERNAL_BATOCERA_PATH/package/batocera/emulators/anbox/properties-cpp/Config.in"
 
   menu "mupen64plus"
     source "$BR2_EXTERNAL_BATOCERA_PATH/package/batocera/emulators/mupen64plus/mupen64plus-core/Config.in"

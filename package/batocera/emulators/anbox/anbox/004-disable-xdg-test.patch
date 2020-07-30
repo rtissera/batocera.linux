@@ -1,0 +1,19 @@
+--- a/external/xdg/CMakeLists.txt	2020-07-30 22:26:59.457296716 +0200
++++ b/external/xdg/CMakeLists.txt	2020-07-30 22:27:11.605530865 +0200
+@@ -15,10 +15,10 @@
+ set_property(TARGET xdg PROPERTY CXX_STANDARD 11)
+ target_link_libraries(xdg ${Boost_LIBRARIES})
+ 
+-enable_testing()
+-add_definitions(-DBOOST_TEST_DYN_LINK -DBOOST_TEST_MAIN -DBOOST_TEST_MODULE=xdg)
+-add_executable(xdg_test xdg_test.cpp)
+-set_property(TARGET xdg_test PROPERTY CXX_STANDARD 11)
+-target_link_libraries(xdg_test xdg ${Boost_LIBRARIES})
++#enable_testing()
++#add_definitions(-DBOOST_TEST_DYN_LINK -DBOOST_TEST_MAIN -DBOOST_TEST_MODULE=xdg)
++#add_executable(xdg_test xdg_test.cpp)
++#set_property(TARGET xdg_test PROPERTY CXX_STANDARD 11)
++#target_link_libraries(xdg_test xdg ${Boost_LIBRARIES})
+ 
+-add_test(xdg_test xdg_test)
++#add_test(xdg_test xdg_test)

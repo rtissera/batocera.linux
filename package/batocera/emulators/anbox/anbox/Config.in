@@ -1,0 +1,22 @@
+config BR2_PACKAGE_ANBOX
+    bool "anbox"
+    depends on BR2_x86_64 || BR2_aarch64
+    select BR2_PACKAGE_BOOST
+    select BR2_PACKAGE_BOOST_IOSTREAMS
+    select BR2_PACKAGE_BOOST_LOG
+    select BR2_PACKAGE_BOOST_PROGRAM_OPTIONS
+    select BR2_PACKAGE_BOOST_SERIALIZATION
+    select BR2_PACKAGE_BOOST_THREAD
+    select BR2_PACKAGE_PROTOBUF
+    select BR2_PACKAGE_SDL2_IMAGE
+    select BR2_PACKAGE_LXC
+    select BR2_PACKAGE_PROPERTIES_CPP
+    select BR2_PACKAGE_LIBCAP
+    select BR2_PACKAGE_GLM
+    help
+      Anbox is a container-based approach to boot a full Android system on a regular GNU/Linux system like Ubuntu. 
+      In other words: Anbox will let you run Android on your Linux system without the slowness of virtualization.
+
+      https://https://anbox.io/
+
+

@@ -1,0 +1,7 @@
+config BR2_PACKAGE_PROPERTIES_CPP
+    bool "properties-cpp"
+    help
+      properties-cpp is a simple header-only implementation of properties and signals.
+      It is meant to be used for developing low-level system services.
+
+      https://github.com/lib-cpp/properties-cpp

@@ -1,0 +1,20 @@
+--- a/CMakeLists.txt	2020-07-30 22:17:03.841628016 +0200
++++ b/CMakeLists.txt	2020-07-30 22:17:18.501920789 +0200
+@@ -118,7 +118,7 @@
+   SET(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -ftest-coverage -fprofile-arcs" )
+ ENDIF(CMAKE_BUILD_TYPE MATCHES [cC][oO][vV][eE][rR][aA][gG][eE])
+ 
+-find_package(GMock)
++#find_package(GMock)
+ 
+ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -fPIC")
+ 
+@@ -138,7 +138,7 @@
+ 
+ add_subdirectory(external)
+ add_subdirectory(src)
+-add_subdirectory(tests)
++#add_subdirectory(tests)
+ add_subdirectory(android)
+ 
+ if (NOT "${HOST_CMAKE_C_COMPILER}" STREQUAL "")

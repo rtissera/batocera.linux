@@ -1,0 +1,20 @@
+--- a/external/android-emugl/shared/emugl/common/CMakeLists.txt	2020-07-30 22:23:44.729569458 +0200
++++ b/external/android-emugl/shared/emugl/common/CMakeLists.txt	2020-07-30 22:23:20.765114682 +0200
+@@ -11,7 +11,7 @@
+     message_channel.cpp
+     message_channel.h
+     mutex.h
+-    mutex_unittest.cpp
++#    mutex_unittest.cpp
+     pod_vector.cpp
+     pod_vector.h
+     scoped_pointer_vector.h
+@@ -25,7 +25,7 @@
+     thread_pthread.cpp
+     thread_store.cpp
+     thread_store.h
+-    thread_unittest.cpp
++#    thread_unittest.cpp
+     unique_integer_map.h)
+ 
+ add_library(emugl_common STATIC ${COMMON_SOURCES})
