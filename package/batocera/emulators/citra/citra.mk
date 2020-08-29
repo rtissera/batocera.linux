@@ -3,7 +3,6 @@
 # CITRA
 #
 ################################################################################
-# Version.: Commits on Jul 08, 2020
 
 CITRA_DEPENDENCIES = fmt boost ffmpeg sdl2
 CITRA_SITE_METHOD=git
@@ -11,14 +10,16 @@ CITRA_GIT_SUBMODULES=YES
 CITRA_LICENSE = GPLv2
 
 # Use citra-android for AArch64 (SDL2 only)
+# Version Aug, 16 2020
 ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_ODROIDN2)$(BR2_PACKAGE_BATOCERA_TARGET_VIM3),y)
-CITRA_VERSION = dad2146e4e65980deb7d273bf1e9c58334847c19
+CITRA_VERSION = 875b1fb0d8518a47cbb885d19e1f4922747003d1
 CITRA_SITE = https://github.com/citra-emu/citra-android.git
 CITRA_CONF_OPTS += -DENABLE_QT=OFF
 
 # Use citra for x86_64 and enable citra-qt
+# Version Aug, 29 2020
 else
-CITRA_VERSION = 96fa75fb93a3dea4a8fbe72bde23b16979057a43
+CITRA_VERSION = a5fd11c213b374b47b07f4fa445a297da881fce7
 CITRA_SITE = https://github.com/citra-emu/citra.git
 CITRA_CONF_OPTS += -DENABLE_QT=ON
 CITRA_CONF_OPTS += -DENABLE_QT_TRANSLATION=ON
@@ -40,9 +41,9 @@ ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_X86_64),y)
 define CITRA_INSTALL_TARGET_CMDS
        	mkdir -p $(TARGET_DIR)/usr/bin
         mkdir -p $(TARGET_DIR)/usr/lib
-	$(INSTALL) -D $(@D)/buildroot-build/bin/citra-qt \
+	$(INSTALL) -D $(@D)/buildroot-build/bin/Release/citra-qt \
 		$(TARGET_DIR)/usr/bin/
-	$(INSTALL) -D $(@D)/buildroot-build/bin/citra \
+	$(INSTALL) -D $(@D)/buildroot-build/bin/Release/citra \
 		$(TARGET_DIR)/usr/bin/
 endef
 else
@@ -50,7 +51,7 @@ define CITRA_INSTALL_TARGET_CMDS
         mkdir -p $(TARGET_DIR)/usr/bin
         mkdir -p $(TARGET_DIR)/usr/lib
 
-	$(INSTALL) -D $(@D)/buildroot-build/bin/citra \
+	$(INSTALL) -D $(@D)/buildroot-build/bin/Release/citra \
 		$(TARGET_DIR)/usr/bin/
 endef
 endif
