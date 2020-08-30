@@ -1,0 +1,11 @@
+--- a/external/sdbus-cpp/CMakeLists.txt	2020-08-30 09:06:30.324514551 +0200
++++ b/external/sdbus-cpp/CMakeLists.txt	2020-08-30 09:06:35.292624403 +0200
+@@ -12,7 +12,7 @@
+ # PERFORMING CHECKS & PREPARING THE DEPENDENCIES
+ #-------------------------------
+ 
+-option(BUILD_LIBSYSTEMD "Build libsystemd static library and incorporate it into libsdbus-c++" OFF)
++option(BUILD_LIBSYSTEMD "Build libsystemd static library and incorporate it into libsdbus-c++" ON)
+ 
+ if(NOT BUILD_LIBSYSTEMD)
+     find_package(PkgConfig REQUIRED)
