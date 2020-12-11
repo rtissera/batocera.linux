@@ -50,7 +50,6 @@ endif
 
 ifeq ($(BR2_PACKAGE_XORG7),y)
 	RETROARCH_CONF_OPTS += --enable-x11
-	RETROARCH_DEPENDENCIES += xserver_xorg-server
 else
 	RETROARCH_CONF_OPTS += --disable-x11
 endif

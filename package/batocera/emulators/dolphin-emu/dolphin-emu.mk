@@ -10,7 +10,7 @@ DOLPHIN_EMU_LICENSE = GPLv2+
 DOLPHIN_EMU_DEPENDENCIES = libevdev ffmpeg zlib libpng lzo libusb libcurl bluez5_utils hidapi xz host-xz
 
 ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_X86_64),y)
-DOLPHIN_EMU_DEPENDENCIES += xserver_xorg-server qt5base
+DOLPHIN_EMU_DEPENDENCIES += qt5base
 endif
 ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_ODROIDN2)$(BR2_PACKAGE_BATOCERA_TARGET_VIM3),y)
 DOLPHIN_EMU_DEPENDENCIES += libdrm
