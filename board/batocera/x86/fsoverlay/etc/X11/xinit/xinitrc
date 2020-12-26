@@ -59,4 +59,5 @@ ulimit -H -c unlimited
 ulimit -S -c unlimited emulationstation
 
 cd /userdata # es needs a PWD
-openbox --config-file /etc/openbox/rc.xml --startup "emulationstation --windowed"
+openbox --config-file /etc/openbox/rc.xml
+# --startup "emulationstation --windowed"
