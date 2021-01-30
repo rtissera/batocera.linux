@@ -1531,7 +1531,7 @@ fmtowns:
   manufacturer: Fujistu
   release: 1987
   hardware: computer
-  extensions: [bin, m3u]
+  extensions: [bin, m3u, cue, d88, d77, xdf, iso]
   platform:   fmtowns
   emulators:
     tsugaru:
@@ -1688,7 +1688,19 @@ imageviewer:
   emulators:
     libretro:
       imageviewer: { requireAnyOf: [] }
-      
+
+library:
+  name:       Library
+  manufacturer: Misc. System
+  release:
+  hardware: system
+  extensions: [jpg jpeg png bmp psd tga gif hdr pic ppm pgm mkv avi mp4 pdf cbz]
+  path:       /userdata/library
+  platform:   imageviewer
+  emulators:
+    libretro:
+      imageviewer: { requireAnyOf: [] }
+
 model3:
   name:       Sega Model 3
   manufacturer: Sega
