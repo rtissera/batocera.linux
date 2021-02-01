@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# Check if DISPLAY environment variable is defined or not
+if [ -z "$DISPLAY" ]
+then
+	batocera-screenshot-drm "$@"
+else
+	batocera-screenshot-xorg "$@"
+fi
+retcode=$?
+exit $retcode

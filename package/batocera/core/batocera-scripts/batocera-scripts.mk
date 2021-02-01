@@ -4,30 +4,10 @@
 #
 ################################################################################
 
-BATOCERA_SCRIPTS_VERSION = 3
+BATOCERA_SCRIPTS_VERSION = 4
 BATOCERA_SCRIPTS_LICENSE = GPL
 BATOCERA_SCRIPTS_DEPENDENCIES = pciutils
 BATOCERA_SCRIPTS_SOURCE=
-
-BATOCERA_SCRIPT_RESOLUTION_TYPE=basic
-BATOCERA_SCRIPT_SCREENSHOT_TYPE=basic
-ifeq ($(BR2_PACKAGE_RPI_USERLAND),y)
-  BATOCERA_SCRIPT_RESOLUTION_TYPE=tvservice
-  BATOCERA_SCRIPT_SCREENSHOT_TYPE=tvservice
-endif
-ifeq ($(BR2_PACKAGE_LIBDRM),y)
-  BATOCERA_SCRIPT_RESOLUTION_TYPE=drm
-  BATOCERA_SCRIPT_SCREENSHOT_TYPE=drm
-endif
-ifeq ($(BR2_PACKAGE_XORG7),y)
-  BATOCERA_SCRIPT_RESOLUTION_TYPE=xorg
-  BATOCERA_SCRIPT_SCREENSHOT_TYPE=xorg
-endif
-
-# doesn't work on odroidgoa with mali g31_gbm
-ifeq ($(BR2_PACKAGE_MALI_G31_GBM),y)
-  BATOCERA_SCRIPT_RESOLUTION_TYPE=basic
-endif
 
 define BATOCERA_SCRIPTS_INSTALL_TARGET_CMDS
 	install -m 0755 $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/core/batocera-scripts/scripts/bluetooth/bluezutils.py            $(TARGET_DIR)/usr/lib/python2.7/ # any variable ?
@@ -60,8 +40,28 @@ define BATOCERA_SCRIPTS_INSTALL_TARGET_CMDS
 	install -m 0755 $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/core/batocera-scripts/scripts/batocera-create-collection      $(TARGET_DIR)/usr/bin/
 	install -m 0755 $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/core/batocera-scripts/scripts/batocera-store                  $(TARGET_DIR)/usr/bin/
 	install -m 0755 $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/core/batocera-scripts/scripts/batocera-autologin              $(TARGET_DIR)/usr/bin/
-	install -m 0755 $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/core/batocera-scripts/scripts/batocera-resolution.$(BATOCERA_SCRIPT_RESOLUTION_TYPE) $(TARGET_DIR)/usr/bin/batocera-resolution
-	install -m 0755 $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/core/batocera-scripts/scripts/batocera-screenshot.$(BATOCERA_SCRIPT_SCREENSHOT_TYPE) $(TARGET_DIR)/usr/bin/batocera-screenshot
+	install -m 0755 $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/core/batocera-scripts/scripts/batocera-resolution             $(TARGET_DIR)/usr/bin/batocera-resolution
+	install -m 0755 $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/core/batocera-scripts/scripts/batocera-screenshot             $(TARGET_DIR)/usr/bin/batocera-screenshot
+endef
+
+define BATOCERA_SCRIPTS_INSTALL_BASIC_SCRIPTS
+	install -m 0755 $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/core/batocera-scripts/scripts/batocera-resolution.basic $(TARGET_DIR)/usr/bin/batocera-resolution
+	install -m 0755 $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/core/batocera-scripts/scripts/batocera-screenshot.basic $(TARGET_DIR)/usr/bin/batocera-screenshot
+endef
+
+define BATOCERA_SCRIPTS_INSTALL_TVSERVICE_SCRIPTS
+	install -m 0755 $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/core/batocera-scripts/scripts/batocera-resolution.tvservice $(TARGET_DIR)/usr/bin/batocera-resolution
+	install -m 0755 $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/core/batocera-scripts/scripts/batocera-screenshot.tvservice $(TARGET_DIR)/usr/bin/batocera-screenshot
+endef
+
+define BATOCERA_SCRIPTS_INSTALL_DRM_SCRIPTS
+	install -m 0755 $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/core/batocera-scripts/scripts/batocera-resolution.drm $(TARGET_DIR)/usr/bin/batocera-resolution-drm
+	install -m 0755 $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/core/batocera-scripts/scripts/batocera-screenshot.drm $(TARGET_DIR)/usr/bin/batocera-screenshot-drm
+endef
+
+define BATOCERA_SCRIPTS_INSTALL_XORG_SCRIPTS
+	install -m 0755 $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/core/batocera-scripts/scripts/batocera-resolution.xorg $(TARGET_DIR)/usr/bin/batocera-resolution-xorg
+	install -m 0755 $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/core/batocera-scripts/scripts/batocera-screenshot.xorg $(TARGET_DIR)/usr/bin/batocera-screenshot-xorg
 endef
 
 define BATOCERA_SCRIPTS_INSTALL_XORG
@@ -73,6 +73,23 @@ endef
 define BATOCERA_SCRIPTS_INSTALL_ROCKCHIP
 	install -m 0755 $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/core/batocera-scripts/scripts/batocera-rockchip-suspend $(TARGET_DIR)/usr/bin/
 endef
+
+# doesn't work on odroidgoa with mali g31_gbm
+ifeq ($(BR2_PACKAGE_MALI_G31_GBM),y)
+  BATOCERA_SCRIPTS_POST_INSTALL_TARGET_HOOKS += BATOCERA_SCRIPTS_INSTALL_BASIC_SCRIPTS
+endif
+
+ifeq ($(BR2_PACKAGE_RPI_USERLAND),y)
+  BATOCERA_SCRIPTS_POST_INSTALL_TARGET_HOOKS += BATOCERA_SCRIPTS_INSTALL_TVSERVICE_SCRIPTS
+endif
+
+ifeq ($(BR2_PACKAGE_LIBDRM),y)
+  BATOCERA_SCRIPTS_POST_INSTALL_TARGET_HOOKS += BATOCERA_SCRIPTS_INSTALL_DRM_SCRIPTS
+endif
+
+ifeq ($(BR2_PACKAGE_XORG7),y)
+  BATOCERA_SCRIPTS_POST_INSTALL_TARGET_HOOKS += BATOCERA_SCRIPTS_INSTALL_XORG_SCRIPTS
+endif
 
 ifeq ($(BR2_PACKAGE_XSERVER_XORG_SERVER),y)
   BATOCERA_SCRIPTS_POST_INSTALL_TARGET_HOOKS += BATOCERA_SCRIPTS_INSTALL_XORG
