@@ -12,31 +12,38 @@
 	  - Several mods (https://github.com/FWGS/hlsdk-xash3d/blob/mobile_hacks/dlls/moddef.h)
 	* add: Solarus (RPG game engine)
 	* add: EasyRPG (RPG Maker engine) both standalone and libretro core
-	* add: MAME (standalone) 0.227 with ARCADE64 filter list and GroovyMame 15 kHz patches
+	* add: MAME (standalone) 0.228 with ARCADE64 filter list and GroovyMame 15 kHz patches
+	* add: Hatari (standalone) 2.3.1
 	* add: Dosbox-Pure libretro core
 	* add: Fairchild Channel-F
 	* add: Sharp X1
 	* add: Redream for x86_64
 	* add: Mugen for x86_64
-	* add: Ruffle (Flash Emulator) for x86_64
-	* add: LightSpark (Flash Emulator) for x86_64
+	* add: Ruffle (Adobe Flash player Emulator) for x86_64
+	* add: LightSpark (Adobe Flash player Emulator) for x86_64
 	* add: Kernel 15 kHz patch
 	* add: Pi 400 support
 	* add: Wine Proton (For more compatibility)
 	* add: MF (For Wine more games compatibility)
 	* add: New RetroAchievements screen in EmulationStation
 	* add: Option to scrape game maps from screenscraper
+	* add: New Arcade scraper (ArcadeDB)
+	* add: New systems supported by theBezelProject
+	* add: Cymraeg language (cy_GB)
+	* add: pcsx2 (ps2) up to 8 players
 	* bump: many libretro cores
 	* bump: FAudio (Wine) to 21.01
 	* bump: Dosbox-X to 0.83.9
 	* bump: Linux 5.10.x LTS kernel series for x86, x86_64 and mainline supported aarch64 & arm SOC's
+	* bump: Lutris (Wine) to 6.0
 	* bump: DXVK (Wine) to 1.7.3
 	* bump: VKD3D-Proton (Wine) to 2.1
-	* bump: Mesa3D to 20.3.3
+	* bump: Mesa3D to 20.3.4
 	* bump: Pygame to 2.0.1
-	* bump: Cemu to 1.22.4
+	* bump: Cemu to 1.22.5c
+	* bump: MAME to 0.228
 	* bump: RPCS3 to 0.0.14
-	* bump: PCSX2
+	* bump: PCSX2 (performances increased)
 	* bump: WinBTRFS Driver to 1.7.6
 	* fix: USB boot on RPi3 and RPi4
 	* fix: set mac eth addr for vim3
@@ -67,6 +74,7 @@
 	* add: easy vulkan configuration for retroarch / rpcs3
 	* add: odroidn2 : jaguar
 	* add: dolphin performances on odroidn2 increased
+	* add: sound when a RetroAchievement is unlocked
 	* fix: Odroid Go Advance splash screen
 	* fix: CHD broken support on most systems
 	* fix: netplay (and add "watch mode")

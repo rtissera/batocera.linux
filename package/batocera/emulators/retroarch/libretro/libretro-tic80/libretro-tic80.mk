@@ -3,11 +3,17 @@
 # tic80 - TIC-80 emulator
 #
 ################################################################################
-# Version.: Commits on Nov 17, 2020
-LIBRETRO_TIC80_VERSION = 95748991ae19811178ff49b50834b0b2143af96e
-LIBRETRO_TIC80_SITE = https://github.com/nesbox/TIC-80.git
-LIBRETRO_TIC80_SITE_METHOD=git
-LIBRETRO_TIC80_GIT_SUBMODULES=YES
+# Version.: Commits on Jan 29, 2021
+#LIBRETRO_TIC80_VERSION = acddaaad3ae5f5f403db9f1a69872697fb49efb5
+#LIBRETRO_TIC80_SITE = https://github.com/nesbox/TIC-80.git
+#LIBRETRO_TIC80_SITE_METHOD=git
+#LIBRETRO_TIC80_GIT_SUBMODULES=YES
+
+# temporary access
+LIBRETRO_TIC80_VERSION = acddaaad3ae5f5f403db9f1a69872697fb49efb5
+LIBRETRO_TIC80_SOURCE = TIC-80-$(LIBRETRO_TIC80_VERSION).tar.gz
+LIBRETRO_TIC80_SITE = https://batocera.org/packages
+
 LIBRETRO_TIC80_LICENSE = MIT
 LIBRETRO_TIC80_PLATFORM = $(LIBRETRO_PLATFORM)
 
