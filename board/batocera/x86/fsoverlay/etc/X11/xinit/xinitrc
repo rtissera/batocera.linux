@@ -65,4 +65,4 @@ EXTRA_OPTS=
 test -n "${display_rotate}" && EXTRA_OPTS="--screenrotate ${display_rotate}"
 
 cd /userdata # es needs a PWD
-openbox --config-file /etc/openbox/rc.xml --startup "emulationstation --windowed ${EXTRA_OPTS}"
+openbox --config-file /etc/openbox/rc.xml
