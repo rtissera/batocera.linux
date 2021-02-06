@@ -180,9 +180,9 @@ config BR2_PACKAGE_BATOCERA_SYSTEM
     select BR2_PACKAGE_RTL8821AU                         if !BR2_PACKAGE_BATOCERA_RPI_VCORE             && \
                                                             !BR2_PACKAGE_BATOCERA_TARGET_ORANGEPI_PC    && \
                                                             !BR2_PACKAGE_BATOCERA_TARGET_ODROIDGOA
+    # do NOT remove this one for OGA
     select BR2_PACKAGE_RTL8192EU                         if !BR2_PACKAGE_BATOCERA_RPI_VCORE             && \
-                                                            !BR2_PACKAGE_BATOCERA_TARGET_ORANGEPI_PC    && \
-                                                            !BR2_PACKAGE_BATOCERA_TARGET_ODROIDGOA
+                                                            !BR2_PACKAGE_BATOCERA_TARGET_ORANGEPI_PC
     select BR2_PACKAGE_RTL8821CE                         if !BR2_PACKAGE_BATOCERA_RPI_VCORE             && \
                                                             !BR2_PACKAGE_BATOCERA_TARGET_S812           && \
                                                             !BR2_PACKAGE_BATOCERA_TARGET_RPI3           && \
@@ -203,6 +203,7 @@ config BR2_PACKAGE_BATOCERA_SYSTEM
     # compression tools
     select BR2_PACKAGE_UNZIP                             # for /userdata/system/upgrade/share.zip
     select BR2_PACKAGE_XZ                                # for updates
+    select BR2_PACKAGE_ZSTD                              # for btrfs compression
 
     # script tool
     select BR2_PACKAGE_DIALOG
@@ -690,12 +691,13 @@ config BR2_PACKAGE_BATOCERA_CONSOLE_SYSTEMS
 		select BR2_PACKAGE_BATOCERA_SEGADC
 
 		# PSX
-		select BR2_PACKAGE_DUCKSTATION                if BR2_PACKAGE_BATOCERA_TARGET_X86_64
+		select BR2_PACKAGE_DUCKSTATION	              if  !BR2_PACKAGE_BATOCERA_TARGET_X86 && \
+								  !BR2_PACKAGE_BATOCERA_RPI_VCORE
+		select BR2_PACKAGE_LIBRETRO_DUCKSTATION	      if  !BR2_PACKAGE_BATOCERA_TARGET_X86 && \
+								  !BR2_PACKAGE_BATOCERA_RPI_VCORE
 		select BR2_PACKAGE_LIBRETRO_PCSX              if !BR2_PACKAGE_BATOCERA_TARGET_RPI1 # PCSX
 		select BR2_PACKAGE_LIBRETRO_BEETLE_PSX        if !BR2_PACKAGE_BATOCERA_RPI_VCORE && \
 		                                             !BR2_PACKAGE_BATOCERA_TARGET_ODROIDGOA
-		select BR2_PACKAGE_LIBRETRO_DUCKSTATION	      if  !BR2_PACKAGE_BATOCERA_TARGET_X86 && \
-								  !BR2_PACKAGE_BATOCERA_RPI_VCORE
 
 
 		# Saturn
