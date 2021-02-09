@@ -4,7 +4,7 @@
 #
 ################################################################################
 # Version.: Commits on Nov 10, 2020
-LIBRETRO_POCKETSNES_VERSION = ff6a6e6e6482ac1a773b192f87916688ebd86abd
+LIBRETRO_POCKETSNES_VERSION = 56aa9b3cca12180b7ebad56b97286c1a93b59e16
 LIBRETRO_POCKETSNES_SITE = $(call github,libretro,snes9x2002,$(LIBRETRO_POCKETSNES_VERSION))
 LIBRETRO_POCKETSNES_LICENSE = Non-commercial
 

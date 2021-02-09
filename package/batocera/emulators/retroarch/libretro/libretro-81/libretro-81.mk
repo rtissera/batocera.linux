@@ -4,7 +4,7 @@
 #
 ################################################################################
 # Version.: Commits on Jan 15, 2021
-LIBRETRO_81_VERSION = d7d61caf077a4d55755a9f163dc5164660e2d6b8
+LIBRETRO_81_VERSION = 9b21e1b38eb31b749dfc7ca8c9996fc54b0d13ff
 LIBRETRO_81_SITE = $(call github,libretro,81-libretro,$(LIBRETRO_81_VERSION))
 LIBRETRO_81_LICENSE = GPLv3
 
