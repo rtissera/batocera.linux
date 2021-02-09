@@ -46,7 +46,6 @@ endef
 
 define BATOCERA_SCRIPTS_INSTALL_BASIC_SCRIPTS
 	install -m 0755 $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/core/batocera-scripts/scripts/batocera-resolution.basic $(TARGET_DIR)/usr/bin/batocera-resolution
-	install -m 0755 $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/core/batocera-scripts/scripts/batocera-screenshot.basic $(TARGET_DIR)/usr/bin/batocera-screenshot
 endef
 
 define BATOCERA_SCRIPTS_INSTALL_TVSERVICE_SCRIPTS
