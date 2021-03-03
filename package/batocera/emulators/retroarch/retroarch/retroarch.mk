@@ -46,14 +46,8 @@ ifeq ($(BR2_GCC_TARGET_FLOAT_ABI),hard)
     RETROARCH_CONF_OPTS += --enable-floathard
 endif
 
-# x86 : no option
-
-ifeq ($(BR2_PACKAGE_XORG7),y)
-	RETROARCH_CONF_OPTS += --enable-x11
-	RETROARCH_DEPENDENCIES += xserver_xorg-server
-else
-	RETROARCH_CONF_OPTS += --disable-x11
-endif
+# x86 : disable x11
+RETROARCH_CONF_OPTS += --disable-x11
 
 ifeq ($(BR2_PACKAGE_ALSA_LIB),y)
 	RETROARCH_CONF_OPTS += --enable-alsa
