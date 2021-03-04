@@ -4,7 +4,7 @@
 #
 ################################################################################
 # Version.: Commits on Jun 24, 2020
-CANNONBALL_VERSION = b6aa525ddd552f96b43b3b3a6f69326a277206bd
+CANNONBALL_VERSION = 49bcfe1431c2be2a343f4777af4eb7a3aaa0b901
 CANNONBALL_SITE = $(call github,djyt,cannonball,$(CANNONBALL_VERSION))
 CANNONBALL_LICENSE = GPLv2
 CANNONBALL_DEPENDENCIES = sdl2 boost
@@ -40,30 +40,6 @@ CANNONBALL_CONF_OPTS += -DCMAKE_CXX_FLAGS=-flto -DCMAKE_EXE_LINKER_FLAGS="$(CANN
 
 # We need to build out-of-tree
 CANNONBALL_SUPPORTS_IN_SOURCE_BUILD = NO
-
-define CANNONBALL_SETUP_CMAKE
-	cp $(@D)/cmake/* $(@D)/
-	$(SED) "s+../res/config+\./res/config+g" $(@D)/CMakeLists.txt
-	$(SED) "s+../src/main+\./src/main+g" $(@D)/CMakeLists.txt
-	$(SED) "s+../res/tilemap.bin+\./res/tilemap.bin +g" $(@D)/CMakeLists.txt
-	$(SED) "s+../res/tilepatch.bin+\./res/tilepatch.bin +g" $(@D)/CMakeLists.txt
-        $(SED) "s+/usr+$(STAGING_DIR)/usr+g" $(@D)/CMakeLists.txt
-        $(SED) "s+/usr+$(STAGING_DIR)/usr+g" $(@D)/sdl2.cmake
-        $(SED) "s+/usr+$(STAGING_DIR)/usr+g" $(@D)/sdl2gl.cmake
-        $(SED) "s+/usr+$(STAGING_DIR)/usr+g" $(@D)/sdl2gles.cmake
-        $(SED) "s+/usr+$(STAGING_DIR)/usr+g" $(@D)/sdl2gles_rpi.cmake
-
-	# Rpi4 64-bit compilation
-	$(SED) "s+-mfpu=neon-fp-armv8++g" $(@D)/sdl2gles_rpi.cmake
-	$(SED) "s+-mfloat-abi=hard++g" $(@D)/sdl2gles_rpi.cmake
-
-        #$(SED) "s+set(xml+#set(xml+g" $(@D)/sdl2.cmake
-        #$(SED) "s+set(xml+#set(xml+g" $(@D)/sdl2gl.cmake
-        #$(SED) "s+set(xml+#set(xml+g" $(@D)/sdl2gles.cmake
-        #$(SED) "s+set(xml+#set(xml+g" $(@D)/sdl2gles_rpi.cmake
-endef
-
-CANNONBALL_PRE_CONFIGURE_HOOKS += CANNONBALL_SETUP_CMAKE
 
 define CANNONBALL_INSTALL_TARGET_CMDS
 	$(INSTALL) -D $(@D)/buildroot-build/cannonball $(TARGET_DIR)/usr/bin/
