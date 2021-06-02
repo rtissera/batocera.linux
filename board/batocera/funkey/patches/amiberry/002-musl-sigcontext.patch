@@ -1,0 +1,10 @@
+--- a/src/osdep/sigsegv_handler.cpp	2021-06-01 09:40:49.124380275 +0200
++++ b/src/osdep/sigsegv_handler.cpp	2021-06-01 09:41:00.643909113 +0200
+@@ -36,7 +36,6 @@
+ #endif
+ #include "uae.h"
+ 
+-#include <asm/sigcontext.h>
+ #include <signal.h>
+ #include <dlfcn.h>
+ int backtrace(void**,int){ return 0; }

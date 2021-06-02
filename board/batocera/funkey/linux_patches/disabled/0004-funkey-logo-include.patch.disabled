@@ -1,0 +1,11 @@
+--- a/include/linux/linux_logo.h"	2021-05-26 11:47:01.000000000 +0200
++++  /include/linux/linux_logo.h	2021-04-15 18:11:43.000000000 +0200
+@@ -39,6 +39,8 @@
+ extern const struct linux_logo logo_blackfin_vga16;
+ extern const struct linux_logo logo_blackfin_clut224;
+ extern const struct linux_logo logo_dec_clut224;
++extern const struct linux_logo logo_funkey_clut224;
++extern const struct linux_logo logo_funkey_recovery_clut224;
+ extern const struct linux_logo logo_mac_clut224;
+ extern const struct linux_logo logo_parisc_clut224;
+ extern const struct linux_logo logo_sgi_clut224;

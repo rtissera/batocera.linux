@@ -75,6 +75,7 @@ menu "Emulationstation"
   source "$BR2_EXTERNAL_BATOCERA_PATH/package/batocera/emulationstation/batocera-emulationstation/Config.in"
   source "$BR2_EXTERNAL_BATOCERA_PATH/package/batocera/emulationstation/batocera-es-system/Config.in"
   source "$BR2_EXTERNAL_BATOCERA_PATH/package/batocera/emulationstation/es-theme-carbon/Config.in"
+  source "$BR2_EXTERNAL_BATOCERA_PATH/package/batocera/emulationstation/es-theme-minijawn/Config.in"
   source "$BR2_EXTERNAL_BATOCERA_PATH/package/batocera/emulationstation/es-background-musics/Config.in"
 endmenu
 
@@ -307,6 +308,7 @@ menu "Utils"
   source "$BR2_EXTERNAL_BATOCERA_PATH/package/batocera/utils/flatpak/Config.in"
   source "$BR2_EXTERNAL_BATOCERA_PATH/package/batocera/utils/pm-utils/Config.in"
   source "$BR2_EXTERNAL_BATOCERA_PATH/package/batocera/utils/mangohud/Config.in"
+  source "$BR2_EXTERNAL_BATOCERA_PATH/package/batocera/utils/fkgpiod/Config.in"
 endmenu
 
 menu "Libraries"
@@ -323,6 +325,29 @@ menu "Libraries"
   source "$BR2_EXTERNAL_BATOCERA_PATH/package/batocera/libraries/wildmidi/Config.in"
   source "$BR2_EXTERNAL_BATOCERA_PATH/package/batocera/libraries/appstream-glib/Config.in"
   source "$BR2_EXTERNAL_BATOCERA_PATH/package/batocera/libraries/python3-pyparsing/Config.in"
+endmenu
+
+menu "FunKey"
+  source "$BR2_EXTERNAL_BATOCERA_PATH/package/funkey/mednafen/Config.in"
+  source "$BR2_EXTERNAL_BATOCERA_PATH/package/funkey/fkgpiod/Config.in"
+  source "$BR2_EXTERNAL_BATOCERA_PATH/package/funkey/retrofe/Config.in"
+  source "$BR2_EXTERNAL_BATOCERA_PATH/package/funkey/PCSX-ReARMed/Config.in"
+  source "$BR2_EXTERNAL_BATOCERA_PATH/package/funkey/FCEUX/Config.in"
+  source "$BR2_EXTERNAL_BATOCERA_PATH/package/funkey/gnuboy/Config.in"
+  source "$BR2_EXTERNAL_BATOCERA_PATH/package/funkey/picodrive/Config.in"
+  source "$BR2_EXTERNAL_BATOCERA_PATH/package/funkey/PocketSNES/Config.in"
+  source "$BR2_EXTERNAL_BATOCERA_PATH/package/funkey/gpsp/Config.in"
+  source "$BR2_EXTERNAL_BATOCERA_PATH/package/funkey/dmtx-utils/Config.in"
+  source "$BR2_EXTERNAL_BATOCERA_PATH/package/funkey/ProdScreens/Config.in"
+  source "$BR2_EXTERNAL_BATOCERA_PATH/package/funkey/fonts-droid/Config.in"
+  source "$BR2_EXTERNAL_BATOCERA_PATH/package/funkey/libini/Config.in"
+  source "$BR2_EXTERNAL_BATOCERA_PATH/package/funkey/libopk/Config.in"
+  source "$BR2_EXTERNAL_BATOCERA_PATH/package/funkey/libxdgmime/Config.in"
+  source "$BR2_EXTERNAL_BATOCERA_PATH/package/funkey/gmenu2x/Config.in"
+  source "$BR2_EXTERNAL_BATOCERA_PATH/package/funkey/agg/Config.in"
+  source "$BR2_EXTERNAL_BATOCERA_PATH/package/funkey/fluidlite/Config.in"
+  source "$BR2_EXTERNAL_BATOCERA_PATH/package/funkey/libmikmod/Config.in"
+  source "$BR2_EXTERNAL_BATOCERA_PATH/package/funkey/commander/Config.in"
 endmenu
 
 endmenu

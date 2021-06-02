@@ -1,0 +1,13 @@
+--- a/arch/arm/boot/dts/Makefile	2021-05-31 09:25:57.124258278 +0200
++++ b/arch/arm/boot/dts/Makefile	2021-05-31 09:26:20.801024707 +0200
+@@ -931,9 +931,7 @@
+ 	sun8i-h3-orangepi-plus.dtb \
+ 	sun8i-h3-orangepi-plus2e.dtb \
+ 	sun8i-r16-bananapi-m2m.dtb \
+-	sun8i-r16-parrot.dtb \
+-	sun8i-v3s-licheepi-zero.dtb \
+-	sun8i-v3s-licheepi-zero-dock.dtb
++	sun8i-r16-parrot.dtb
+ dtb-$(CONFIG_MACH_SUN9I) += \
+ 	sun9i-a80-optimus.dtb \
+ 	sun9i-a80-cubieboard4.dtb

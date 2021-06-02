@@ -1,0 +1,28 @@
+--- a/src/osdep/amiberry.cpp	2021-06-01 09:33:44.329767188 +0200
++++ b/src/osdep/amiberry.cpp	2021-06-01 09:34:03.340988379 +0200
+@@ -15,9 +15,6 @@
+ #include <csignal>
+ 
+ #include <algorithm>
+-#ifndef ANDROID
+-#include <execinfo.h>
+-#endif
+ 
+ #include "sysdeps.h"
+ #include "options.h"
+--- a/src/osdep/sigsegv_handler.cpp	2021-06-01 09:38:02.131212125 +0200
++++ b/src/osdep/sigsegv_handler.cpp	2021-06-01 09:38:25.642250057 +0200
+@@ -39,13 +39,9 @@
+ #include <asm/sigcontext.h>
+ #include <signal.h>
+ #include <dlfcn.h>
+-#ifndef ANDROID
+-#include <execinfo.h>
+-#else
+ int backtrace(void**,int){ return 0; }
+ char** backtrace_symbols(void* const*,int){return NULL; }
+ void backtrace_symbols_fd(void* const*,int,int){} 
+-#endif
+ #include <SDL.h>
+ 
+ #ifdef JIT

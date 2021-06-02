@@ -1,0 +1,56 @@
+--- a/drivers/video/logo/Kconfig	2021-05-26 11:47:01.000000000 +0200
++++ b/drivers/video/logo/Kconfig	2021-04-15 18:11:43.000000000 +0200
+@@ -42,6 +42,14 @@
+ 	depends on MACH_DECSTATION || ALPHA
+ 	default y
+ 
++config LOGO_FUNKEY_CLUT224
++	bool "224-color FunKey Linux logo"
++	default y
++
++config LOGO_FUNKEY_RECOVERY_CLUT224
++	bool "224-color FunKey Recovery Linux logo"
++	default n
++
+ config LOGO_MAC_CLUT224
+ 	bool "224-color Macintosh Linux logo"
+ 	depends on MAC
+--- a/drivers/video/logo/logo.c	2021-05-26 11:47:01.000000000 +0200
++++ b/drivers/video/logo/logo.c	2021-04-15 18:11:43.000000000 +0200
+@@ -86,6 +86,14 @@
+ 		/* DEC Linux logo on MIPS/MIPS64 or ALPHA */
+ 		logo = &logo_dec_clut224;
+ #endif
++#ifdef CONFIG_LOGO_FUNKEY_CLUT224
++		/* FunKey Linux logo */
++		logo = &logo_funkey_clut224;
++#endif
++#ifdef CONFIG_LOGO_FUNKEY_RECOVERY_CLUT224
++		/* FunKey Recovery Linux logo */
++		logo = &logo_funkey_recovery_clut224;
++#endif
+ #ifdef CONFIG_LOGO_MAC_CLUT224
+ 		/* Macintosh Linux logo on m68k */
+ 		if (MACH_IS_MAC)
+@@ -111,6 +119,10 @@
+ 		/* M32R Linux logo */
+ 		logo = &logo_m32r_clut224;
+ #endif
++#ifdef CONFIG_LOGO_FUNKEY_CLUT224
++		/* Funkey Linux logo */
++		logo = &logo_funkey_clut224;
++#endif
+ 	}
+ 	return logo;
+ }
+--- a/drivers/video/logo/Makefile	2021-05-26 11:47:01.000000000 +0200
++++ b/drivers/video/logo/Makefile	2021-04-15 18:11:43.000000000 +0200
+@@ -8,6 +8,8 @@
+ obj-$(CONFIG_LOGO_BLACKFIN_CLUT224)	+= logo_blackfin_clut224.o
+ obj-$(CONFIG_LOGO_BLACKFIN_VGA16)	+= logo_blackfin_vga16.o
+ obj-$(CONFIG_LOGO_DEC_CLUT224)		+= logo_dec_clut224.o
++obj-$(CONFIG_LOGO_FUNKEY_CLUT224)	+= logo_funkey_clut224.o
++obj-$(CONFIG_LOGO_FUNKEY_RECOVERY_CLUT224)	+= logo_funkey_recovery_clut224.o
+ obj-$(CONFIG_LOGO_MAC_CLUT224)		+= logo_mac_clut224.o
+ obj-$(CONFIG_LOGO_PARISC_CLUT224)	+= logo_parisc_clut224.o
+ obj-$(CONFIG_LOGO_SGI_CLUT224)		+= logo_sgi_clut224.o

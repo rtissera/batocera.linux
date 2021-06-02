@@ -1,0 +1,16 @@
+--- a/CMakeLists.txt	2021-06-01 09:10:58.030385207 +0200
++++ b/CMakeLists.txt	2021-06-01 09:11:11.681804816 +0200
+@@ -343,12 +343,7 @@
+ find_program (XGETTEXT_EXECUTABLE xgettext)
+ find_package(Intl)
+ 
+-if(MSGFMT_EXECUTABLE AND MSGMERGE_EXECUTABLE AND XGETTEXT_EXECUTABLE AND Intl_FOUND)
+-  message (STATUS "Native language support enabled.")
+-  add_definitions(-DHAVE_INTL)
+-else()
+-  message (STATUS "Native language support disabled.")
+-endif()
++message (STATUS "Native language support disabled.")
+ 
+ #-------------------------------------------------------------------------------
+ # set up build directories

@@ -1,0 +1,44 @@
+--- a/u-boot.cfg	2021-06-02 09:17:41.976473236 +0200
++++ b/u-boot.cfg	2021-06-02 09:18:42.815193815 +0200
+@@ -127,7 +127,7 @@
+ #define CONFIG_SPL_BOOTSTAGE_RECORD_COUNT 5
+ #define CONFIG_BLOCK_CACHE 1
+ #define CONFIG_OF_LIBFDT 1
+-#define CONFIG_DEFAULT_ENV_FILE "$(BR2_EXTERNAL_RECOVERY_PATH)/board/funkey/rootfs-overlay/etc/u-boot.env"
++#define CONFIG_DEFAULT_ENV_FILE "$(BR2_EXTERNAL_BATOCERA_PATH)/board/batocera/funkey/fsoverlay/etc/u-boot.env"
+ #define CONFIG_USB2_VBUS_PIN ""
+ #define CONFIG_SPL_STACK LOW_LEVEL_SRAM_STACK
+ #define CONFIG_CLK 1
+--- a/spl/u-boot.cfg	2021-06-02 09:17:50.976278522 +0200
++++ b/spl/u-boot.cfg	2021-06-02 09:19:06.442718058 +0200
+@@ -127,7 +127,7 @@
+ #define CONFIG_SPL_BOOTSTAGE_RECORD_COUNT 5
+ #define CONFIG_BLOCK_CACHE 1
+ #define CONFIG_OF_LIBFDT 1
+-#define CONFIG_DEFAULT_ENV_FILE "$(BR2_EXTERNAL_RECOVERY_PATH)/board/funkey/rootfs-overlay/etc/u-boot.env"
++#define CONFIG_DEFAULT_ENV_FILE "$(BR2_EXTERNAL_BATOCERA_PATH)/board/batocera/funkey/fsoverlay/etc/u-boot.env"
+ #define CONFIG_USB2_VBUS_PIN ""
+ #define CONFIG_SPL_STACK LOW_LEVEL_SRAM_STACK
+ #define CONFIG_CLK 1
+--- a/include/config/auto.conf	2021-06-02 09:18:05.955958841 +0200
++++ b/include/config/auto.conf	2021-06-02 09:19:27.850295853 +0200
+@@ -27,7 +27,7 @@
+ CONFIG_OF_SEPARATE=y
+ CONFIG_GENERATE_SMBIOS_TABLE=y
+ CONFIG_SPL_LEGACY_IMAGE_SUPPORT=y
+-CONFIG_DEFAULT_ENV_FILE="$(BR2_EXTERNAL_RECOVERY_PATH)/board/funkey/rootfs-overlay/etc/u-boot.env"
++CONFIG_DEFAULT_ENV_FILE="$(BR2_EXTERNAL_BATOCERA_PATH)/board/batocera/funkey/fsoverlay/etc/u-boot.env"
+ CONFIG_SYS_ARM_CACHE_WRITEBACK=y
+ CONFIG_MMC2_CD_PIN=""
+ CONFIG_GZIP=y
+--- a/include/generated/autoconf.h	2021-06-02 09:18:21.763627133 +0200
++++ b/include/generated/autoconf.h	2021-06-02 09:19:49.721872491 +0200
+@@ -29,7 +29,7 @@
+ #define CONFIG_OF_SEPARATE 1
+ #define CONFIG_GENERATE_SMBIOS_TABLE 1
+ #define CONFIG_SPL_LEGACY_IMAGE_SUPPORT 1
+-#define CONFIG_DEFAULT_ENV_FILE "$(BR2_EXTERNAL_RECOVERY_PATH)/board/funkey/rootfs-overlay/etc/u-boot.env"
++#define CONFIG_DEFAULT_ENV_FILE "$(BR2_EXTERNAL_BATOCERA_PATH)/board/batoceara/funkey/fsoverlay/etc/u-boot.env"
+ #define CONFIG_SYS_ARM_CACHE_WRITEBACK 1
+ #define CONFIG_MMC2_CD_PIN ""
+ #define CONFIG_GZIP 1
