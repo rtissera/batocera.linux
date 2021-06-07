@@ -251,7 +251,7 @@ config BR2_PACKAGE_BATOCERA_SYSTEM
 	help
     	Install the batocera.linux system files
 
-config BR2_PACKAGE_BATOCERA_FUNKEY_SYSTEM
+config BR2_PACKAGE_BATOCERA_EMBEDDED_SYSTEM
 	bool "batocera.linux minimal"
 
 	# minimal system required packages
@@ -277,10 +277,10 @@ config BR2_PACKAGE_BATOCERA_FUNKEY_SYSTEM
 	select BR2_PACKAGE_NTFS_3G                              # ntfs
 	select BR2_PACKAGE_NTFS_3G_NTFSPROGS                    # ntfs
 	select BR2_PACKAGE_BTRFS_PROGS                          # btrfs
-	select BR2_PACKAGE_DROPBEAR                             # ssh server
 	select BR2_PACKAGE_PM_UTILS                             # suspend
 	select BR2_PACKAGE_UTIL_LINUX_LIBMOUNT                  # for util-linux compilation to work (so, may be removed in the future)
 
+	select BR2_PACKAGE_DBUS					# required for dbus-python
 	select BR2_PACKAGE_PARTED                               # partition management (for the first boot)
 	select BR2_PACKAGE_USBMOUNT                             # usb key/sd card mounter
 	select BR2_PACKAGE_USBUTILS                             # usb key/sd card tools
@@ -289,10 +289,19 @@ config BR2_PACKAGE_BATOCERA_FUNKEY_SYSTEM
 	select BR2_PACKAGE_BATOCERA_SETTINGS                    # batocera-settings-get/set
 	select BR2_PACKAGE_BATOCERA_AUDIO                       # batocera audio
 	select BR2_PACKAGE_BATOCERA_NOTICE                      # boot pdf notice
-	select BR2_PACKAGE_WGET                                 # download tools
-	select BR2_PACKAGE_LIBCURL
-	select BR2_PACKAGE_LIBCURL_CURL                         # download tools
-	select BR2_PACKAGE_CA_CERTIFICATES                      # ssl certificates
+
+	#select BR2_PACKAGE_WGET                                 # download tools
+	#select BR2_PACKAGE_LIBCURL
+	#select BR2_PACKAGE_LIBCURL_CURL                         # download tools
+	#select BR2_PACKAGE_CA_CERTIFICATES                      # ssl certificates
+
+	#select BR2_PACKAGE_DROPBEAR                             # ssh server
+	#select BR2_PACKAGE_AVAHI                                # service discovery on local network
+	#select BR2_PACKAGE_AVAHI_DAEMON                         # ping batocera.local
+	#select BR2_PACKAGE_AVAHI_LIBDNSSD_COMPATIBILITY         # bonjour
+	#select BR2_PACKAGE_NTP
+	#select BR2_PACKAGE_RSYNC
+	#select BR2_PACKAGE_GESFTPSERVER                         # required to access folders via sftp and should be replaced by openssh
 
 	select BR2_PACKAGE_SDL2
         select BR2_PACKAGE_SDL2_OPENGLES                        
@@ -300,13 +309,8 @@ config BR2_PACKAGE_BATOCERA_FUNKEY_SYSTEM
 	select BR2_PACKAGE_LIBDRM                               
 	select BR2_PACKAGE_BATOCERA_DRMINFO                     
 	select BR2_SYSTEM_ENABLE_NLS                            # locales
-	select BR2_PACKAGE_AVAHI                                # service discovery on local network
-	select BR2_PACKAGE_AVAHI_DAEMON                         # ping batocera.local
-	select BR2_PACKAGE_AVAHI_LIBDNSSD_COMPATIBILITY         # bonjour
-	select BR2_PACKAGE_NTP
-	select BR2_PACKAGE_RSYNC
+
 	select BR2_PACKAGE_KBD                                  # loadkeys
-	select BR2_PACKAGE_GESFTPSERVER                         # required to access folders via sftp and should be replaced by openssh
 	select BR2_PACKAGE_GPTFDISK                             # fs resize
 	select BR2_PACKAGE_GPTFDISK_SGDISK                      # fs resize
 	select BR2_PACKAGE_E2FSPROGS                            # fs resize
@@ -517,7 +521,7 @@ config BR2_PACKAGE_BATOCERA_ALL_SYSTEMS
 		batocera.linux all supported emulation systems
 
 #### systems ####
-config BR2_PACKAGE_BATOCERA_FUNKEY_SYSTEMS
+config BR2_PACKAGE_BATOCERA_EMBEDDED_SYSTEMS
 	bool "batocera.linux all emulators packages selection"
 
 	# RetroArch frontend and core data
@@ -651,7 +655,7 @@ config BR2_PACKAGE_BATOCERA_FUNKEY_SYSTEMS
 	#select BR2_PACKAGE_CGENIUS                 
 
 	help
-		batocera.linux funkey emulation systems
+		batocera.linux EMBEDDED emulation systems
 
 #### Wine Layer ####
 config BR2_PACKAGE_BATOCERA_WINE_SYSTEMS
