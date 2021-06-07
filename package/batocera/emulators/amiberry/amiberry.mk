@@ -3,8 +3,8 @@
 # AMIBERRY
 #
 ################################################################################
-# Version.: Release on Apr 6, 2021
-AMIBERRY_VERSION = v4.1.2
+# Version.: Release on Jun 5, 2021
+AMIBERRY_VERSION = v4.1.4
 AMIBERRY_SITE = $(call github,midwan,amiberry,$(AMIBERRY_VERSION))
 AMIBERRY_LICENSE = GPLv3
 AMIBERRY_DEPENDENCIES = sdl2 sdl2_image sdl2_ttf mpg123 libxml2 libmpeg2 flac
@@ -16,7 +16,7 @@ endif
 ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_RPI4),y)
 	AMIBERRY_BATOCERA_SYSTEM=pi64
 else ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_RPI3),y)
-	AMIBERRY_BATOCERA_SYSTEM=rpi3-sdl2
+	AMIBERRY_BATOCERA_SYSTEM=pi64
 else ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_RPI2),y)
 	AMIBERRY_BATOCERA_SYSTEM=rpi2-sdl2
 else ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_RPI1),y)
@@ -39,7 +39,7 @@ else ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_RK3399),y)
 	AMIBERRY_BATOCERA_SYSTEM=lePotato
 else ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_RK3288),y)
 	AMIBERRY_BATOCERA_SYSTEM=RK3288
-else ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_ODROIDC2)$(BR2_PACKAGE_BATOCERA_TARGET_S905),y)
+else ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_S905),y)
 	AMIBERRY_BATOCERA_SYSTEM=AMLGXBB
 else ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_ODROIDC4)$(BR2_PACKAGE_BATOCERA_TARGET_S905GEN3),y)
 	AMIBERRY_BATOCERA_SYSTEM=AMLSM1
@@ -87,7 +87,7 @@ endef
 
 define AMIBERRY_EVMAP
 	mkdir -p $(TARGET_DIR)/usr/share/evmapy
-	
+
 	cp -prn $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/emulators/amiberry/amiga500.amiberry.keys \
 		$(TARGET_DIR)/usr/share/evmapy
 	cp -prn $(BR2_EXTERNAL_BATOCERA_PATH)/package/batocera/emulators/amiberry/amiga1200.amiberry.keys \

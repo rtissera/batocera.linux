@@ -3,16 +3,12 @@
 # PX68K
 #
 ################################################################################
-# Version.: Commits on Mar 12, 2021
+# Version.: Commits on May 16, 2021
 LIBRETRO_PX68K_VERSION = 38f89e664c6c4307a1d857f3fddddb5e7c3e1e1e
 LIBRETRO_PX68K_SITE = $(call github,libretro,px68k-libretro,$(LIBRETRO_PX68K_VERSION))
 LIBRETRO_PX68K_LICENSE = Unknown
 
 LIBRETRO_PX68K_PLATFORM = $(LIBRETRO_PLATFORM)
-
-ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_RPI3),y)
-	LIBRETRO_PX68K_PLATFORM = armv neon
-endif
 
 define LIBRETRO_PX68K_BUILD_CMDS
 	$(TARGET_CONFIGURE_OPTS) $(MAKE) CXX="$(TARGET_CXX)" CC="$(TARGET_CC)" -C $(@D)/ -f Makefile.libretro platform="$(LIBRETRO_PX68K_PLATFORM)"
