@@ -113,6 +113,36 @@ dl-dir:
 		$(DOCKER_REPO)/$(IMAGE_NAME) \
 		make $(MAKE_OPTS) O=/$* BR2_EXTERNAL=/build -C /build/buildroot $(CMD)
 
+%-menuconfig: batocera-docker-image output-dir-%
+	@cp -f $(PROJECT_DIR)/configs/batocera-$*_defconfig $(PROJECT_DIR)/configs/batocera-$*_defconfig-tmp
+	@for opt in $(EXTRA_OPTS); do \
+		echo $$opt >> $(PROJECT_DIR)/configs/batocera-$*_defconfig ; \
+	done
+	@docker run -t --init --rm \
+		-v $(PROJECT_DIR):/build \
+		-v $(DL_DIR):/build/buildroot/dl \
+		-v $(OUTPUT_DIR)/$*:/$* \
+		-v /etc/passwd:/etc/passwd:ro \
+		-v /etc/group:/etc/group:ro \
+		-u $(UID):$(GID) \
+		$(DOCKER_OPTS) \
+		$(DOCKER_REPO)/$(IMAGE_NAME) \
+		make O=/$* BR2_EXTERNAL=/build -C /build/buildroot batocera-$*_defconfig menuconfig
+	@mv -f $(PROJECT_DIR)/configs/batocera-$*_defconfig-tmp $(PROJECT_DIR)/configs/batocera-$*_defconfig
+
+%-sdk: batocera-docker-image %-config ccache-dir dl-dir
+	@docker run -t --init --rm \
+		-v $(PROJECT_DIR):/build \
+		-v $(DL_DIR):/build/buildroot/dl \
+		-v $(OUTPUT_DIR)/$*:/$* \
+		-v $(CCACHE_DIR):$(HOME)/.buildroot-ccache \
+		-u $(UID):$(GID) \
+		-v /etc/passwd:/etc/passwd:ro \
+		-v /etc/group:/etc/group:ro \
+		$(DOCKER_OPTS) \
+		$(DOCKER_REPO)/$(IMAGE_NAME) \
+		make $(MAKE_OPTS) O=/$* BR2_EXTERNAL=/build -C /build/buildroot sdk
+
 %-source: batocera-docker-image %-config ccache-dir dl-dir
 	@docker run -t --init --rm \
 		-v $(PROJECT_DIR):/build \

@@ -4,11 +4,11 @@
 #
 ################################################################################
 
-PACMAN_VERSION = 5.2.1
+PACMAN_VERSION = 5.2.2
 PACMAN_SITE = https://sources.archlinux.org/other/pacman
 PACMAN_SOURCES = pacman-$(PACMAN_VERSION).tar.gz
 PACMAN_LICENSE = GPLv2
-PACMAN_DEPENDENCIES = glibc libarchive libcurl libgpgme openssl
+PACMAN_DEPENDENCIES = libarchive libcurl libgpgme openssl
 
 define BATOCERA_PACMAN_INSTALL_CONF
 	mkdir -p $(TARGET_DIR)/usr/share/batocera/datainit/system/pacman
