@@ -1,0 +1,184 @@
+From dd27481de69782f87fcd6910e558d4067196f486 Mon Sep 17 00:00:00 2001
+From: Romain TISSERAND <romain.tisserand@gmail.com>
+Date: Mon, 16 Nov 2020 18:03:20 +0100
+Subject: [PATCH] Ugly bgfx+sdl2+gles patch to get MAME running on embedded
+
+---
+ 3rdparty/bgfx/scripts/bgfx.lua       |   6 +
+ 3rdparty/bgfx/src/config.h           |  16 +++
+ 3rdparty/bgfx/src/renderer_gl.cpp    |   2 +
+ 3rdparty/bgfx/src/renderer_gl.h      |  15 ++-
+ scripts/genie.lua                    |   4 +
+ scripts/src/3rdparty.lua             |   1 +
+ src/osd/modules/render/drawbgfx.cpp  |  22 +--
+ src/osd/sdl/window.cpp               |  40 +++++-
+ 10 files changed, 327 insertions(+), 26 deletions(-)
+ create mode 100644 3rdparty/bgfx/src/glcontext_sdl2.cpp
+ create mode 100644 3rdparty/bgfx/src/glcontext_sdl2.h
+
+diff --git a/3rdparty/bgfx/scripts/bgfx.lua b/3rdparty/bgfx/scripts/bgfx.lua
+index 69335c67964..cb10aa72775 100644
+--- a/3rdparty/bgfx/scripts/bgfx.lua
++++ b/3rdparty/bgfx/scripts/bgfx.lua
+@@ -64,6 +64,12 @@ function bgfxProjectBase(_kind, _defines)
+ 			buildoptions {
+ 				"-fPIC",
+ 			}
++			links {
++				"SDL2",
++				"EGL",
++				"GLESv2",
++				"pthread",
++			}
+ 
+ 		configuration {}
+ 	end
+diff --git a/3rdparty/bgfx/src/renderer_gl.cpp b/3rdparty/bgfx/src/renderer_gl.cpp
+index dadfb5c2dd4..1563e586eee 100644
+--- a/3rdparty/bgfx/src/renderer_gl.cpp
++++ b/3rdparty/bgfx/src/renderer_gl.cpp
+@@ -6510,11 +6510,13 @@ BX_TRACE("%d, %d, %d, %s", _array, _srgb, _mipAutogen, getName(_format) );
+ 		}
+ 		PrimInfo prim = s_primInfo[primIndex];
+ 
++		/* HACK SDL2 GLES
+ 		GL_CHECK(glPolygonMode(GL_FRONT_AND_BACK
+ 			, _render->m_debug&BGFX_DEBUG_WIREFRAME
+ 			? GL_LINE
+ 			: GL_FILL
+ 			) );
++		*/
+ 
+ 		bool wasCompute = false;
+ 		bool viewHasScissor = false;
+diff --git a/scripts/genie.lua b/scripts/genie.lua
+index db16f3b56b6..eb8801dcffb 100644
+--- a/scripts/genie.lua
++++ b/scripts/genie.lua
+@@ -1205,6 +1205,10 @@ configuration { "linux-* or rpi or ci20"}
+ 		links {
+ 			"dl",
+ 			"rt",
++                        "EGL",
++                        "GLESv1_CM",
++                        "GLESv2",
++                        "SDL2",
+ 		}
+ 		if _OPTIONS["distro"]=="debian-stable" then
+ 			defines
+diff --git a/src/osd/modules/render/drawbgfx.cpp b/src/osd/modules/render/drawbgfx.cpp
+index 39f11a26d37..925fd3042c0 100644
+--- a/src/osd/modules/render/drawbgfx.cpp
++++ b/src/osd/modules/render/drawbgfx.cpp
+@@ -183,27 +183,9 @@ static void* sdlNativeWindowHandle(SDL_Window* _window)
+ 
+ inline bool sdlSetWindow(SDL_Window* _window)
+ {
+-	SDL_SysWMinfo wmi;
+-	SDL_VERSION(&wmi.version);
+-	if (!SDL_GetWindowWMInfo(_window, &wmi) )
+-	{
+-		return false;
+-	}
+-
+ 	bgfx::PlatformData pd;
+-#   if BX_PLATFORM_LINUX || BX_PLATFORM_BSD
+-	pd.ndt          = wmi.info.x11.display;
+-	pd.nwh          = (void*)(uintptr_t)wmi.info.x11.window;
+-#   elif BX_PLATFORM_OSX
+-	pd.ndt          = NULL;
+-	pd.nwh          = wmi.info.cocoa.window;
+-#   elif BX_PLATFORM_WINDOWS
+-	pd.ndt          = NULL;
+-	pd.nwh          = wmi.info.win.window;
+-#   elif BX_PLATFORM_STEAMLINK
+-	pd.ndt          = wmi.info.vivante.display;
+-	pd.nwh          = wmi.info.vivante.window;
+-#   endif // BX_PLATFORM_
++	pd.nwh          = (void*)SDL_GL_GetCurrentWindow();
++	pd.ndt          = (void*)SDL_GL_GetCurrentContext();
+ 	pd.context      = NULL;
+ 	pd.backBuffer   = NULL;
+ 	pd.backBufferDS = NULL;
+diff --git a/src/osd/sdl/window.cpp b/src/osd/sdl/window.cpp
+index 9f07ce7cd49..814503f8427 100644
+--- a/src/osd/sdl/window.cpp
++++ b/src/osd/sdl/window.cpp
+@@ -95,7 +95,8 @@ bool sdl_osd_interface::window_init()
+ 	switch (video_config.mode)
+ 	{
+ 		case VIDEO_MODE_BGFX:
+-			renderer_bgfx::init(machine());
++			// LATER
++			// renderer_bgfx::init(machine());
+ 			break;
+ #if (USE_OPENGL)
+ 		case VIDEO_MODE_OPENGL:
+@@ -665,6 +666,12 @@ int sdl_window_info::complete_create()
+ {
+ 	osd_dim temp(0,0);
+ 
++	if (SDL_WasInit(SDL_INIT_VIDEO)==0)
++	{
++		osd_printf_verbose("Force SDL_INIT_VIDEO\n");
++		SDL_InitSubSystem(SDL_INIT_VIDEO);
++	}
++
+ 	// clear out original mode. Needed on OSX
+ 	if (fullscreen())
+ 	{
+@@ -694,13 +701,21 @@ int sdl_window_info::complete_create()
+ 	 *
+ 	 */
+ 	osd_printf_verbose("Enter sdl_info::create\n");
+-	if (renderer().has_flags(osd_renderer::FLAG_NEEDS_OPENGL) && !video_config.novideo)
++	//if (renderer().has_flags(osd_renderer::FLAG_NEEDS_OPENGL) && !video_config.novideo)
+ 	{
++		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
++		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
++		SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);
++                SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
++                SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
++                SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
++                SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
++                SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+ 		SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
+-		m_extra_flags = SDL_WINDOW_OPENGL;
++		m_extra_flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN;
+ 	}
+-	else
+-		m_extra_flags = 0;
++	//else
++	//	m_extra_flags = 0;
+ 
+ 	// We need to workaround an issue in SDL 2.0.4 for OS X where setting the
+ 	// relative mode on the mouse in fullscreen mode makes mouse events stop
+@@ -749,6 +764,19 @@ int sdl_window_info::complete_create()
+ 		return 1;
+ 	}
+ 
++	SDL_GL_SetAttribute(SDL_GL_SHARE_WITH_CURRENT_CONTEXT, 1);
++        SDL_GLContext context = SDL_GL_CreateContext(sdlwindow);
++	if (context == nullptr )
++	{
++		osd_printf_error("GL context creation failed: %s\n", SDL_GetError());
++		return 1;
++	}
++	if (SDL_GL_MakeCurrent(sdlwindow, context) < 0)
++	{
++		osd_printf_error("GL context setup failed: %s\n", SDL_GetError());
++		return 1;
++	}
++
+ 	set_platform_window(sdlwindow);
+ 
+ 	if (fullscreen() && video_config.switchres)
+@@ -811,6 +839,8 @@ int sdl_window_info::complete_create()
+ 	if (fullscreen() && video_config.switchres)
+ 		monitor()->update_resolution(temp.width(), temp.height());
+ 
++	renderer_bgfx::init(machine());
++
+ 	// initialize the drawing backend
+ 	if (renderer().create())
+ 		return 1;

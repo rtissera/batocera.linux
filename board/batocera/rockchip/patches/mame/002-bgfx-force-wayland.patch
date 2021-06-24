@@ -1,0 +1,51 @@
+--- a/3rdparty/bgfx/scripts/genie.lua	2021-02-23 16:02:38.000000000 +0100
++++ b/3rdparty/bgfx/scripts/genie.lua	2021-06-19 22:18:51.547031849 +0200
+@@ -138,9 +138,7 @@
+ function copyLib()
+ end
+ 
+-if _OPTIONS["with-wayland"] then
+-	defines { "WL_EGL_PLATFORM=1" }
+-end
++defines { "WL_EGL_PLATFORM=1" }
+ 
+ if _OPTIONS["with-sdl"] then
+ 	if os.is("windows") then
+@@ -187,11 +185,9 @@
+ 		links   { "SDL2" }
+ 
+ 		configuration { "linux or freebsd" }
+-			if _OPTIONS["with-wayland"]  then
+-				links {
+-					"wayland-egl",
+-				}
+-			end
++			links {
++				"wayland-egl",
++			}
+ 
+ 		configuration { "osx" }
+ 			libdirs { "$(SDL2_DIR)/lib" }
+@@ -204,19 +200,9 @@
+ 		links   { "glfw3" }
+ 
+ 		configuration { "linux or freebsd" }
+-			if _OPTIONS["with-wayland"] then
+-				links {
+-					"wayland-egl",
+-				}
+-			else
+-				links {
+-					"Xrandr",
+-					"Xinerama",
+-					"Xi",
+-					"Xxf86vm",
+-					"Xcursor",
+-				}
+-			end
++			links {
++				"wayland-egl",
++			}
+ 
+ 		configuration { "osx" }
+ 			linkoptions {

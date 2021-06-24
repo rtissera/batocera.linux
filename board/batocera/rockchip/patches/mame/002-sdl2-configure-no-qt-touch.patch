@@ -1,0 +1,11 @@
+--- a/3rdparty/SDL2/configure	2021-02-23 16:02:38.000000000 +0100
++++ b/3rdparty/SDL2/configure	2021-06-19 17:55:14.216297696 +0200
+@@ -18759,7 +18759,7 @@
+ if test "${enable_video_wayland_qt_touch+set}" = set; then :
+   enableval=$enable_video_wayland_qt_touch;
+ else
+-  enable_video_wayland_qt_touch=yes
++  enable_video_wayland_qt_touch=no
+ fi
+ 
+ 
